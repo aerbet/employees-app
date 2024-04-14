@@ -1,12 +1,19 @@
 import "./EmployeesListItem.css"
+import PropTypes from "prop-types";
 
-const EmployeesListItem = () => {
+const EmployeesListItem = ({ name, salary, increase }) => {
+  
+  let liName = "list-group-item d-flex justify-content-between";
+  if(increase) {
+    liName += ' increase';
+  }
+  
   return (
-    <li className="list-group-item d-flex justify-content-between">
-      <span className="list-group-item-label">John Smith</span>
+    <li className={liName}>
+      <span className="list-group-item-label">{name}</span>
       <input type="text"
              className="list-group-item-input"
-             defaultValue="1000$"/>
+             defaultValue={salary + '$'}/>
       <div className='d-flex justify-content-center align-items-center'>
         <button type="button"
                 className="btn-cookie btn-sm ">
@@ -21,6 +28,12 @@ const EmployeesListItem = () => {
       </div>
     </li>
   );
+};
+
+EmployeesListItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  salary: PropTypes.number.isRequired,
+  increase: PropTypes.bool.isRequired,
 };
 
 export default EmployeesListItem;
