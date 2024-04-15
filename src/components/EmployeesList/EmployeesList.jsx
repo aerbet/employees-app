@@ -7,10 +7,10 @@ const EmployeesList = ({ data }) => {
   const elements = data.map((item, index) => {
     
     return (
-      <EmployeesListItem key={index} {...item} />
+      <EmployeesListItem key={index + 1} {...item} />
     )
   })
-  
+  console.log(elements)
   return (
     <ul className="app-list list-group">
       {elements}
