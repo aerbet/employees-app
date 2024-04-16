@@ -10,7 +10,7 @@ const EmployeesList = ({ data }) => {
       <EmployeesListItem key={index + 1} {...item} />
     )
   })
-  console.log(elements)
+
   return (
     <ul className="app-list list-group">
       {elements}
@@ -19,8 +19,7 @@ const EmployeesList = ({ data }) => {
 };
 
 EmployeesList.propTypes = {
-  data: PropTypes.string.isRequired,
-  salary: PropTypes.number.isRequired
+  data: PropTypes.array.isRequired,
 };
 
 export default EmployeesList;
