@@ -1,34 +1,75 @@
-import AppInfo from "../AppInfo/AppInfo.jsx";
-import SearchPanel from "../SearchPanel/SearchPanel.jsx";
-import AppFilter from "../AppFilter/AppFilter.jsx";
-import EmployeesList from "../EmployeesList/EmployeesList.jsx";
-import EmployeesAddForm from "../EmployeesAddForm/EmployeesAddForm.jsx";
+import {Component} from "react";
+/*import newId from "../../utils/newId.js";*/
+
+import AppInfo from "../AppInfo/AppInfo";
+import SearchPanel from "../SearchPanel/SearchPanel";
+import AppFilter from "../AppFilter/AppFilter";
+import EmployeesList from "../EmployeesList/EmployeesList";
+import EmployeesAddForm from "../EmployeesAddForm/EmployeesAddForm";
 
 import './App.css'
 
-function App() {
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [
+        {name: 'John L.', salary: 800, id: 1},
+        {name: 'Leon O.', salary: 2000, id: 2},
+        {name: 'Pereira A.', salary: 14000, id: 3},
+      ]
+    }
+    this.maxId = 4;
+  }
   
-  const data = [
-    {name: 'John L.', salary: 800},
-    {name: 'Leon O.', salary: 2000},
-    {name: 'Pereira A.', salary: 14000},
-  ]
   
-  return (
-    <>
-      <div className="app">
-        <AppInfo />
-        
-        <div className="search-panel">
-          <SearchPanel />
-          <AppFilter />
+  deleteItem = (id) => {
+    this.setState(({ data }) => {
+      return {
+        data: data.filter(item => item.id !== id)
+      }
+    })
+  }
+  
+  addEmployee = (name, salary) => {
+    const newEmployee = {
+      name,
+      salary,
+      id: this.maxId++
+    }
+    
+    if(newEmployee.name === '' && newEmployee.salary === '') {
+      alert('Пожалуйста, введите имя и зарплату сотрудника')
+    } else {
+      this.setState(({ data }) => {
+        const newArr = [...data, newEmployee]
+        return {
+          data: newArr
+        }
+      })
+    }
+  }
+  
+  render() {
+    
+    return (
+      <>
+        <div className="app">
+          <AppInfo />
+          
+          <div className="search-panel">
+            <SearchPanel />
+            <AppFilter />
+          </div>
+          
+          <EmployeesList
+            data={this.state.data}
+            onDelete={this.deleteItem} />
+          <EmployeesAddForm onAdd={this.addEmployee}/>
         </div>
-        
-        <EmployeesList data={data}/>
-        <EmployeesAddForm />
-      </div>
-    </>
-  )
+      </>
+    )
+  }
 }
 
 export default App;
