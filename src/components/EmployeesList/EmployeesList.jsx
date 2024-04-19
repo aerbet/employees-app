@@ -2,7 +2,7 @@ import "./EmployeesList.css"
 import EmployeesListItem from "../EmployeesListItem/EmployeesListItem.jsx";
 import PropTypes from "prop-types";
 
-const EmployeesList = ({ data, onDelete }) => {
+const EmployeesList = ({ data, onDelete, onToggleProp }) => {
   
   const elements = data.map(item => {
     const {id, ...itemProps } = item;
@@ -11,7 +11,8 @@ const EmployeesList = ({ data, onDelete }) => {
       <EmployeesListItem
         key={id}
         {...itemProps}
-        onDelete={() => onDelete(id)} />
+        onDelete={() => onDelete(id)}
+        onToggleProp={(e) => onToggleProp(id, e.currentTarget.getAttribute('data-toggle') )} />
     )
   })
 
@@ -25,6 +26,7 @@ const EmployeesList = ({ data, onDelete }) => {
 EmployeesList.propTypes = {
   data: PropTypes.array.isRequired,
   onDelete: PropTypes.func.isRequired,
+  onToggleProp: PropTypes.func.isRequired,
 };
 
 export default EmployeesList;

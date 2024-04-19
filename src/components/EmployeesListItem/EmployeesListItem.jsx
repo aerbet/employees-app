@@ -1,51 +1,29 @@
 import "./EmployeesListItem.css"
 import PropTypes from "prop-types";
-import {Component} from "react";
 
-class EmployeesListItem extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      increase: false,
-      like: false
-    }
-  }
+const EmployeesListItem = (props) => {
   
-  onIncrease = () => {
-    this.setState(({ increase }) => ({
-      increase: !increase
-    }))
-  }
-  
-  setLike = () => {
-    this.setState(({ like }) => ({
-      like: !like
-    }))
-  }
-  
-  render() {
-    const { name, salary, onDelete } = this.props;
-    const { increase, like } = this.state;
+    const { name, salary, onDelete, onToggleProp, increase, rise } = props;
     
     let liName = "list-group-item d-flex justify-content-between";
     if(increase) {
       liName += ' increase';
     }
-    if(like) {
+    if(rise) {
       liName += ' like';
     }
     
-    
     return (
       <li className={liName}>
-        <span onClick={this.setLike} className="list-group-item-label">{name}</span>
+        <span onClick={onToggleProp} data-toggle="rise" className="list-group-item-label">{name}</span>
         <input type="text"
                className="list-group-item-input"
                defaultValue={salary + '$'}/>
         <div className='d-flex justify-content-center align-items-center'>
           <button type="button"
                   className="btn-cookie btn-sm "
-                  onClick={this.onIncrease}>
+                  onClick={onToggleProp}
+                  data-toggle="increase">
             <i className="fas fa-cookie"></i>
           </button>
           
@@ -59,13 +37,14 @@ class EmployeesListItem extends Component {
       </li>
     );
   }
-  
-}
 
 EmployeesListItem.propTypes = {
   name: PropTypes.string.isRequired,
   salary: PropTypes.any.isRequired,
   onDelete: PropTypes.func.isRequired,
+  onToggleProp: PropTypes.func.isRequired,
+  increase: PropTypes.bool,
+  rise: PropTypes.bool
 };
 
 export default EmployeesListItem;
