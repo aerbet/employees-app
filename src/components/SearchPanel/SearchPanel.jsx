@@ -4,11 +4,9 @@ import {Component} from "react";
 import PropTypes from "prop-types";
 
 class SearchPanel extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      term: ''
-    }
+  
+  state = {
+    term: ''
   }
   
   onUpdateSearch = (e) => {
